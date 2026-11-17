@@ -1,658 +1,108 @@
 <!DOCTYPE html>
 <html lang="fr" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TALL STORE - Boutique en Ligne</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome pour les icônes -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            DEFAULT: '#f59e0b',
-                            dark: '#d97706',
-                            light: '#fef3c7'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Poppins', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101827">
+  <title>TALL STORE — Boutique en ligne</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--ink:#101827;--gold:#e9a72f;--cream:#f8f6f1;--muted:#758092}
+    *{box-sizing:border-box} body{margin:0;background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif}
+    .serif{font-family:'Playfair Display',serif}.topline{background:#101827;color:#f5f2ea}.site-header{background:rgba(255,255,255,.94);backdrop-filter:blur(14px);border-bottom:1px solid #ece9e2}
+    .brand-mark{background:linear-gradient(145deg,#f3bd5c,#d88a13);box-shadow:0 7px 18px #d88a1333}.hero{background:radial-gradient(ellipse at 82% 15%,#f2bd5b30,transparent 34%),linear-gradient(120deg,#101827,#1c2a3c 60%,#111827);position:relative;overflow:hidden}
+    .hero:after{content:'';position:absolute;width:420px;height:420px;border:1px solid #ffffff12;border-radius:50%;right:-120px;bottom:-260px;box-shadow:0 0 0 45px #ffffff08,0 0 0 90px #ffffff05;pointer-events:none}
+    .hero-photo{box-shadow:0 28px 70px #0005}.gold-btn{background:linear-gradient(135deg,#efb94f,#df941c);transition:transform .2s,box-shadow .2s}.gold-btn:hover{transform:translateY(-2px);box-shadow:0 12px 25px #df941c44}
+    .product-card{transition:transform .25s,box-shadow .25s}.product-card:hover{transform:translateY(-5px);box-shadow:0 18px 35px #15223814}.filter-btn.active{background:#101827;color:white;border-color:#101827}
+    .wa-fab{box-shadow:0 10px 24px #128c4b44}.modal-backdrop{background:#07101dcc;backdrop-filter:blur(5px)}
+    @media(max-width:640px){.hero-title{font-size:2.55rem}.hero-image-wrap{min-height:250px}}
+  </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans antialiased flex flex-col min-h-screen">
-
-    <!-- Top Banner -->
-    <div class="bg-gray-900 text-white text-xs py-2 px-4 text-center">
-        <span><i class="fa-solid fa-truck-fast mr-2 text-brand"></i> Livraison rapide à Conakry et environs | Commandes via WhatsApp</span>
+<body>
+  <div class="topline px-4 py-2 text-center text-xs tracking-wide"><i class="fa-solid fa-truck-fast mr-2" style="color:var(--gold)"></i> Livraison rapide à Conakry et environs <span class="mx-2 text-white/30">|</span> Commandes simples via WhatsApp</div>
+  <header class="site-header sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[76px] flex items-center justify-between">
+      <a href="#accueil" class="flex items-center gap-3" aria-label="TALL STORE accueil">
+        <span class="brand-mark w-11 h-11 rounded-xl text-white flex items-center justify-center"><i class="fa-solid fa-bag-shopping text-lg"></i></span>
+        <span><span class="block font-extrabold tracking-tight text-xl">TALL<span style="color:var(--gold)">STORE</span></span><span class="block text-[10px] uppercase tracking-[.16em] text-slate-500 -mt-1">Votre shopping de confiance</span></span>
+      </a>
+      <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
+        <a class="hover:text-amber-600 transition" href="#catalogue">Boutique</a><a class="hover:text-amber-600 transition" href="#categories">Catégories</a><a class="hover:text-amber-600 transition" href="#contact">Contact</a>
+      </nav>
+      <div class="flex items-center gap-2 sm:gap-3">
+        <a href="https://wa.me/224625561200?text=Bonjour%20TALL%20STORE%2C%20je%20souhaite%20passer%20une%20commande." target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-2.5 text-sm font-bold text-emerald-700 hover:bg-emerald-100 transition"><i class="fa-brands fa-whatsapp text-lg"></i><span>WhatsApp</span></a>
+        <button onclick="toggleCartModal()" aria-label="Ouvrir le panier" class="relative w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 transition flex items-center justify-center"><i class="fa-solid fa-bag-shopping"></i><span id="cart-badge" class="absolute -right-1 -top-1 hidden h-5 min-w-5 rounded-full bg-amber-500 px-1 text-[10px] font-bold text-white items-center justify-center">0</span></button>
+        <button onclick="toggleMobileMenu()" aria-label="Menu" class="md:hidden w-10 h-10 rounded-full hover:bg-slate-100"><i class="fa-solid fa-bars"></i></button>
+      </div>
     </div>
-
-    <!-- Header / Navigation -->
-    <header class="sticky top-0 z-40 bg-white shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <!-- Logo -->
-                <div class="flex items-center space-x-3">
-                    <div class="bg-brand text-white p-2.5 rounded-xl font-bold text-xl shadow-md">
-                        <i class="fa-solid fa-store"></i>
-                    </div>
-                    <div>
-                        <span class="text-2xl font-extrabold tracking-tight text-gray-900">TALL<span class="text-brand">STORE</span></span>
-                        <p class="text-xs text-gray-500 font-medium">Votre shopping de confiance</p>
-                    </div>
-                </div>
-
-                <!-- Navigation Desktop -->
-                <nav class="hidden md:flex items-center space-x-8">
-                    <a href="#catalogue" class="text-gray-600 hover:text-brand font-medium transition">Catalogue</a>
-                    <a href="#categories" class="text-gray-600 hover:text-brand font-medium transition">Catégories</a>
-                    <a href="#contact" class="text-gray-600 hover:text-brand font-medium transition">Contact</a>
-                </nav>
-
-                <!-- Actions Header -->
-                <div class="flex items-center space-x-4">
-                    <!-- Bouton Panier -->
-                    <button onclick="toggleCartModal()" class="relative p-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-full transition flex items-center justify-center">
-                        <i class="fa-solid fa-bag-shopping text-lg"></i>
-                        <span id="cart-badge" class="absolute -top-1 -right-1 bg-brand text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center hidden">0</span>
-                    </button>
-
-                    <!-- Bouton Admin Modal -->
-                    <button onclick="openAdminModal()" class="hidden sm:flex items-center space-x-2 bg-gray-900 hover:bg-gray-800 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition shadow-sm">
-                        <i class="fa-solid fa-lock text-brand"></i>
-                        <span>Admin</span>
-                    </button>
-
-                    <!-- Menu Burger Mobile -->
-                    <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-gray-700 hover:text-brand">
-                        <i class="fa-solid fa-bars text-xl"></i>
-                    </button>
-                </div>
-            </div>
+    <div id="mobile-menu" class="hidden md:hidden border-t bg-white px-5 py-3 space-y-1">
+      <a href="#catalogue" onclick="toggleMobileMenu()" class="block rounded-lg px-3 py-2 text-sm font-semibold hover:bg-slate-50">Boutique</a><a href="#categories" onclick="toggleMobileMenu()" class="block rounded-lg px-3 py-2 text-sm font-semibold hover:bg-slate-50">Catégories</a><a href="#contact" onclick="toggleMobileMenu()" class="block rounded-lg px-3 py-2 text-sm font-semibold hover:bg-slate-50">Contact</a>
+      <a href="https://wa.me/224625561200?text=Bonjour%20TALL%20STORE%2C%20je%20souhaite%20passer%20une%20commande." target="_blank" rel="noopener noreferrer" class="block rounded-lg px-3 py-2 text-sm font-bold text-emerald-700"><i class="fa-brands fa-whatsapp mr-2"></i>Nous écrire sur WhatsApp</a>
+    </div>
+  </header>
+  <main>
+    <section id="accueil" class="hero text-white">
+      <div class="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 py-16 md:py-24 grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-flex items-center gap-2 rounded-full border border-amber-300/30 bg-amber-200/10 px-4 py-2 text-xs font-bold uppercase tracking-[.14em] text-amber-200"><span class="h-1.5 w-1.5 rounded-full bg-amber-300"></span> Nouvelle collection 2026</div>
+          <h1 class="serif hero-title mt-6 text-5xl sm:text-6xl leading-[1.08] font-bold">Le style qui vous ressemble<span class="text-amber-300">.</span></h1>
+          <p class="mt-6 max-w-lg text-base sm:text-lg leading-8 text-slate-300">Découvrez une sélection de vêtements, accessoires et high-tech, choisie avec soin pour vous à Conakry.</p>
+          <div class="mt-8 flex flex-wrap gap-3"><a href="#catalogue" class="gold-btn inline-flex items-center gap-3 rounded-xl px-6 py-3.5 font-bold text-slate-950">Découvrir la boutique <i class="fa-solid fa-arrow-right text-sm"></i></a><a href="https://wa.me/224625561200?text=Bonjour%20TALL%20STORE%2C%20je%20souhaite%20passer%20une%20commande." target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-xl border border-white/20 px-5 py-3.5 font-semibold hover:bg-white/10 transition"><i class="fa-brands fa-whatsapp text-xl text-emerald-300"></i>Commander</a></div>
+          <div class="mt-10 flex items-center gap-5 text-xs text-slate-300"><span><i class="fa-solid fa-circle-check mr-1.5 text-amber-300"></i>Sélection de qualité</span><span><i class="fa-solid fa-truck-fast mr-1.5 text-amber-300"></i>Livraison à Conakry</span></div>
         </div>
-
-        <!-- Menu Mobile Drawer -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-b px-4 pt-2 pb-4 space-y-2">
-            <a href="#catalogue" onclick="toggleMobileMenu()" class="block py-2 text-gray-700 font-medium">Catalogue</a>
-            <a href="#categories" onclick="toggleMobileMenu()" class="block py-2 text-gray-700 font-medium">Catégories</a>
-            <a href="#contact" onclick="toggleMobileMenu()" class="block py-2 text-gray-700 font-medium">Contact</a>
-            <button onclick="openAdminModal(); toggleMobileMenu();" class="w-full mt-2 text-center bg-gray-900 text-white py-2.5 rounded-xl font-medium">
-                <i class="fa-solid fa-lock text-brand mr-2"></i> Espace Admin
-            </button>
+        <div class="hero-image-wrap relative mx-auto w-full max-w-lg min-h-[340px] flex items-center justify-center">
+          <div class="absolute inset-5 rounded-[2rem] bg-amber-200/10 rotate-3"></div><div class="hero-photo relative w-full overflow-hidden rounded-[2rem] border border-white/10"><img class="h-[340px] sm:h-[410px] w-full object-cover" src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&q=85&w=1000" alt="Sélection mode TALL STORE"><div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-6 pt-20"><span class="text-xs font-bold uppercase tracking-[.16em] text-amber-300">TALL STORE</span><p class="serif mt-1 text-2xl font-bold">Le plaisir de bien choisir.</p></div></div>
         </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white py-16 px-4">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div class="space-y-6">
-                <span class="bg-brand/20 text-brand border border-brand/30 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">Nouvelle Collection 2026</span>
-                <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight">
-                    Le meilleur du shopping <span class="text-brand">à portée de main</span>
-                </h1>
-                <p class="text-gray-300 text-base sm:text-lg">
-                    Découvrez nos articles rigoureusement sélectionnés : vêtements tendance, accessoires de mode, smartphones et high-tech au meilleur prix à Conakry.
-                </p>
-                <div class="flex flex-wrap gap-4 pt-2">
-                    <a href="#catalogue" class="bg-brand hover:bg-brand-dark text-white font-semibold px-8 py-3.5 rounded-xl shadow-lg transition flex items-center space-x-2">
-                        <span>Explorer la boutique</span>
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="relative flex justify-center">
-                <div class="w-full max-w-md bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/10 shadow-2xl">
-                    <div class="relative h-64 sm:h-72 rounded-2xl overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&q=80&w=800" alt="Boutique TALL STORE" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6">
-                            <div>
-                                <span class="bg-brand text-white text-xs font-bold px-2.5 py-1 rounded-md">Offre du moment</span>
-                                <h3 class="text-white font-bold text-lg mt-1">Articles de qualité supérieure</h3>
-                                <p class="text-xs text-gray-300">Commandez directement sur WhatsApp</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+      </div>
     </section>
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14" id="catalogue">
+      <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"><div><p class="text-xs font-bold uppercase tracking-[.18em] text-amber-600">Notre sélection</p><h2 class="serif mt-2 text-3xl sm:text-4xl font-bold">Les coups de cœur</h2><p class="mt-2 text-sm text-slate-500">Trouvez votre prochain indispensable.</p></div><div class="relative w-full sm:max-w-xs"><i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i><input id="search-input" oninput="filterProducts()" type="search" placeholder="Rechercher un produit..." class="w-full rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-4 text-sm outline-none transition focus:border-amber-400 focus:ring-4 focus:ring-amber-100"></div></div>
+      <div id="categories" class="mb-7 flex flex-wrap gap-2"><button onclick="filterCategory('all')" id="cat-all" class="filter-btn active rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold transition">Tout voir</button><button onclick="filterCategory('vetements')" id="cat-vetements" class="filter-btn rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold transition">Vêtements</button><button onclick="filterCategory('chaussures')" id="cat-chaussures" class="filter-btn rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold transition">Chaussures</button><button onclick="filterCategory('accessoires')" id="cat-accessoires" class="filter-btn rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold transition">Accessoires</button><button onclick="filterCategory('electronique')" id="cat-electronique" class="filter-btn rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold transition">High-Tech</button></div>
+      <div id="products-grid" class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"></div>
+      <div id="no-products" class="hidden rounded-2xl border border-dashed border-slate-300 bg-white py-16 text-center"><i class="fa-solid fa-box-open text-3xl text-slate-300"></i><h3 class="mt-3 font-bold">Aucun produit trouvé</h3><p class="mt-1 text-sm text-slate-500">Essayez une autre recherche ou catégorie.</p></div>
+    </section>
+    <section class="mx-4 sm:mx-6 lg:mx-auto max-w-7xl mb-14 rounded-3xl bg-[#172337] px-6 py-8 text-white sm:px-10 sm:py-10"><div class="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center"><div><p class="text-xs font-bold uppercase tracking-[.18em] text-amber-300">Besoin d’un conseil ?</p><h2 class="serif mt-2 text-2xl sm:text-3xl font-bold">Nous sommes à votre écoute.</h2><p class="mt-2 text-sm text-slate-300">Écrivez-nous directement pour votre commande.</p></div><a href="https://wa.me/224625561200?text=Bonjour%20TALL%20STORE%2C%20je%20souhaite%20passer%20une%20commande." target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-5 py-3 font-bold hover:bg-emerald-500 transition"><i class="fa-brands fa-whatsapp text-xl"></i>Contacter la boutique</a></div></section>
+  </main>
+  <footer id="contact" class="bg-[#101827] text-white"><div class="max-w-7xl mx-auto grid gap-9 px-5 py-12 sm:px-8 md:grid-cols-3"><div><a href="#accueil" class="inline-flex items-center gap-3"><span class="brand-mark flex h-10 w-10 items-center justify-center rounded-xl"><i class="fa-solid fa-bag-shopping"></i></span><span class="text-xl font-extrabold">TALL<span class="text-amber-400">STORE</span></span></a><p class="mt-4 max-w-xs text-sm leading-6 text-slate-400">Votre boutique de référence pour un shopping simple, rapide et sécurisé à Conakry.</p></div><div><h3 class="font-bold text-amber-300">Contact rapide</h3><p class="mt-4 text-sm text-slate-300"><i class="fa-solid fa-phone mr-2 text-amber-300"></i>+224 625 56 12 00</p><div class="mt-4 flex flex-wrap gap-2"><a href="tel:+224625561200" class="inline-flex items-center gap-2 rounded-lg border border-white/15 px-3 py-2 text-xs font-semibold hover:bg-white/10"><i class="fa-solid fa-phone"></i>Appeler maintenant</a><a href="https://wa.me/224625561200?text=Bonjour%20TALL%20STORE%2C%20je%20souhaite%20passer%20une%20commande." target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-lg bg-emerald-700 px-3 py-2 text-xs font-semibold hover:bg-emerald-600"><i class="fa-brands fa-whatsapp"></i>WhatsApp</a></div><p class="mt-4 text-sm text-slate-400"><i class="fa-solid fa-envelope mr-2 text-amber-300"></i>ibrahimasorytall65@gmail.com</p><p class="mt-2 text-sm text-slate-400"><i class="fa-solid fa-location-dot mr-2 text-amber-300"></i>Conakry, Guinée</p></div><div><h3 class="font-bold text-amber-300">Espace boutique</h3><p class="mt-4 text-sm leading-6 text-slate-400">Gérez les produits affichés dans votre catalogue.</p><button onclick="openAdminModal()" class="mt-4 rounded-lg border border-white/15 px-4 py-2.5 text-sm font-semibold hover:bg-white/10"><i class="fa-solid fa-lock mr-2"></i>Accès administrateur</button></div></div><div class="border-t border-white/10 px-5 py-5 text-center text-xs text-slate-500">&copy; 2026 TALL STORE. Tous droits réservés. Propulsé pour la vente en Guinée.</div></footer>
 
-    <!-- Main Content -->
-    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full" id="catalogue">
-        
-        <!-- Filtres et Recherche -->
-        <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
-            <!-- Barre de recherche -->
-            <div class="relative w-full md:w-96">
-                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
-                    <i class="fa-solid fa-search"></i>
-                </span>
-                <input type="text" id="search-input" oninput="filterProducts()" placeholder="Rechercher un produit..." class="w-full pl-10 pr-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent text-sm shadow-sm">
-            </div>
-
-            <!-- Filtres par Catégorie -->
-            <div id="categories" class="flex flex-wrap gap-2 w-full md:w-auto justify-start md:justify-end">
-                <button onclick="filterCategory('all')" id="cat-all" class="category-btn px-4 py-2 rounded-xl text-sm font-semibold transition bg-gray-900 text-white shadow-sm">Tous</button>
-                <button onclick="filterCategory('vetements')" id="cat-vetements" class="category-btn px-4 py-2 rounded-xl text-sm font-semibold transition bg-white text-gray-600 hover:bg-gray-100 border border-gray-200">Vêtements</button>
-                <button onclick="filterCategory('chaussures')" id="cat-chaussures" class="category-btn px-4 py-2 rounded-xl text-sm font-semibold transition bg-white text-gray-600 hover:bg-gray-100 border border-gray-200">Chaussures</button>
-                <button onclick="filterCategory('accessoires')" id="cat-accessoires" class="category-btn px-4 py-2 rounded-xl text-sm font-semibold transition bg-white text-gray-600 hover:bg-gray-100 border border-gray-200">Accessoires</button>
-                <button onclick="filterCategory('electronique')" id="cat-electronique" class="category-btn px-4 py-2 rounded-xl text-sm font-semibold transition bg-white text-gray-600 hover:bg-gray-100 border border-gray-200">High-Tech</button>
-            </div>
-        </div>
-
-        <!-- Grille des Produits -->
-        <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Les produits seront injectés dynamiquement ici -->
-        </div>
-
-        <!-- Aucun résultat -->
-        <div id="no-products" class="hidden text-center py-16">
-            <div class="text-gray-400 text-5xl mb-4"><i class="fa-solid fa-box-open"></i></div>
-            <h3 class="text-lg font-bold text-gray-700">Aucun produit trouvé</h3>
-            <p class="text-sm text-gray-500 mt-1">Essayez de modifier votre recherche ou filtre de catégorie.</p>
-        </div>
-    </main>
-
-    <!-- Footer -->
-    <footer id="contact" class="bg-gray-900 text-white pt-12 pb-8 border-t border-gray-800 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            <div>
-                <div class="flex items-center space-x-3 mb-4">
-                    <div class="bg-brand text-white p-2 rounded-lg font-bold">
-                        <i class="fa-solid fa-store"></i>
-                    </div>
-                    <span class="text-xl font-extrabold tracking-tight">TALL<span class="text-brand">STORE</span></span>
-                </div>
-                <p class="text-sm text-gray-400">Votre boutique de référence pour un shopping simple, rapide et sécurisé à Conakry.</p>
-            </div>
-            <div>
-                <h4 class="text-base font-bold mb-4 text-brand">Contact Rapide</h4>
-                <p class="text-sm text-gray-400 mb-2"><i class="fa-solid fa-phone mr-2 text-brand"></i> +224 625 56 12 00</p>
-                <div class="mt-3 flex flex-wrap gap-3">
-                    <a href="tel:+224625561200" class="inline-flex items-center justify-center bg-brand hover:bg-brand-dark text-white text-xs font-semibold px-4 py-2 rounded-xl transition shadow-sm">
-                        <i class="fa-solid fa-phone mr-2"></i> Appeler maintenant
-                    </a>
-                </div>
-                <p class="text-sm text-gray-400 mb-2"><i class="fa-solid fa-envelope mr-2 text-brand"></i> ibrahimasorytall65@gmail.com</p>
-                <p class="text-sm text-gray-400"><i class="fa-solid fa-location-dot mr-2 text-brand"></i> Conakry, Guinée</p>
-            </div>
-            <div>
-                <h4 class="text-base font-bold mb-4 text-brand">Administration</h4>
-                <p class="text-sm text-gray-400 mb-4">Vous êtes propriétaire de la boutique ? Connectez-vous pour ajouter ou modifier vos articles.</p>
-                <button onclick="openAdminModal()" class="bg-gray-800 hover:bg-gray-700 text-brand border border-gray-700 px-4 py-2 rounded-xl text-sm font-medium transition">
-                    <i class="fa-solid fa-lock mr-2"></i> Accès Administrateur
-                </button>
-            </div>
-        </div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 border-t border-gray-800 text-center text-xs text-gray-500">
-            &copy; 2026 TALL STORE. Tous droits réservés. Propulsé pour la vente en Guinée.
-        </div>
-    </footer>
-
-    <!-- MODAL PANIER -->
-    <div id="cart-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex justify-end">
-        <div class="bg-white w-full max-w-md h-full shadow-2xl flex flex-col justify-between transform transition-transform">
-            <!-- Entête du Panier -->
-            <div class="p-6 border-b flex items-center justify-between bg-gray-50">
-                <div class="flex items-center space-x-2">
-                    <i class="fa-solid fa-bag-shopping text-brand text-xl"></i>
-                    <h3 class="font-bold text-lg text-gray-900">Mon Panier</h3>
-                </div>
-                <button onclick="toggleCartModal()" class="p-2 text-gray-400 hover:text-gray-600 rounded-full">
-                    <i class="fa-solid fa-xmark text-xl"></i>
-                </button>
-            </div>
-
-            <!-- Liste des articles -->
-            <div id="cart-items" class="p-6 overflow-y-auto flex-grow divide-y divide-gray-100">
-                <!-- Articles injectés dynamiquement -->
-            </div>
-
-            <!-- Pied du Panier & Validation WhatsApp -->
-            <div class="p-6 border-t bg-gray-50 space-y-4">
-                <div class="flex justify-between items-center text-base font-bold text-gray-900">
-                    <span>Total estimé :</span>
-                    <span id="cart-total" class="text-brand text-xl">0 GNF</span>
-                </div>
-                <button onclick="checkoutWhatsApp()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3.5 px-4 rounded-xl transition flex items-center justify-center space-x-2 shadow-md">
-                    <i class="fa-brands fa-whatsapp text-xl"></i>
-                    <span>Commander sur WhatsApp</span>
-                </button>
-                <button onclick="toggleCartModal()" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2.5 px-4 rounded-xl transition text-sm">
-                    Continuer mes achats
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL ADMIN -->
-    <div id="admin-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
-            <!-- Entête Admin -->
-            <div class="p-6 bg-gray-900 text-white flex items-center justify-between">
-                <div class="flex items-center space-x-3">
-                    <div class="bg-brand text-white p-2 rounded-lg"><i class="fa-solid fa-gauge"></i></div>
-                    <h3 class="font-bold text-lg">Espace Administrateur - TALL STORE</h3>
-                </div>
-                <button onclick="closeAdminModal()" class="text-gray-400 hover:text-white p-1">
-                    <i class="fa-solid fa-xmark text-xl"></i>
-                </button>
-            </div>
-
-            <!-- Contenu Admin -->
-            <div class="p-6 overflow-y-auto space-y-6">
-                <!-- Formulaire d'ajout de produit -->
-                <div class="bg-gray-50 p-5 rounded-xl border border-gray-200">
-                    <h4 class="font-bold text-gray-900 mb-4 flex items-center">
-                        <i class="fa-solid fa-circle-plus text-brand mr-2"></i> Ajouter un nouveau produit
-                    </h4>
-                    <form id="add-product-form" onsubmit="handleAddProduct(event)" class="space-y-4">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-semibold text-gray-700 mb-1">Nom du produit</label>
-                                <input type="text" id="new-name" required placeholder="Ex: Baskets Urban Street" class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-brand focus:outline-none bg-white">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-gray-700 mb-1">Catégorie</label>
-                                <select id="new-category" class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-brand focus:outline-none bg-white">
-                                    <option value="vetements">Vêtements</option>
-                                    <option value="chaussures">Chaussures</option>
-                                    <option value="accessoires">Accessoires</option>
-                                    <option value="electronique">High-Tech</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-semibold text-gray-700 mb-1">Prix (en GNF)</label>
-                                <input type="number" id="new-price" required placeholder="Ex: 150000" class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-brand focus:outline-none bg-white">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-gray-700 mb-1">URL de l'image (Lien direct)</label>
-                                <input type="url" id="new-image" required placeholder="https://exemple.com/image.jpg" class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-brand focus:outline-none bg-white">
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-gray-700 mb-1">Description courte</label>
-                            <textarea id="new-desc" rows="2" placeholder="Détails du produit..." class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-brand focus:outline-none bg-white"></textarea>
-                        </div>
-                        <button type="submit" class="w-full bg-brand hover:bg-brand-dark text-white font-semibold py-2.5 px-4 rounded-xl transition text-sm shadow-sm">
-                            Enregistrer et publier le produit
-                        </button>
-                    </form>
-                </div>
-
-                <!-- Liste des produits existants pour gestion -->
-                <div>
-                    <h4 class="font-bold text-gray-900 mb-3 text-sm uppercase tracking-wider">Produits enregistrés (<span id="admin-product-count">0</span>)</h4>
-                    <div id="admin-products-list" class="space-y-2 max-h-48 overflow-y-auto pr-2">
-                        <!-- Liste dynamique -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- JavaScript Logique Boutique -->
-    <script>
-        // Données initiales des produits de la boutique
-        let products = [
-            {
-                id: 1,
-                name: "Baskets Urban Street Pro",
-                category: "chaussures",
-                price: 250000,
-                image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=600",
-                description: "Confortables, tendance et résistantes pour vos sorties quotidiennes à Conakry."
-            },
-            {
-                id: 2,
-                name: "Casquette TALL Édition Limitée",
-                category: "accessoires",
-                price: 75000,
-                image: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&q=80&w=600",
-                description: "Casquette streetwear ajustable de haute qualité."
-            },
-            {
-                id: 3,
-                name: "Écouteurs Sans Fil Bluetooth Pods",
-                category: "electronique",
-                price: 180000,
-                image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&q=80&w=600",
-                description: "Son stéréo immersif avec longue autonomie de batterie."
-            },
-            {
-                id: 4,
-                name: "Sac à Dos Casual Imperméable",
-                category: "accessoires",
-                price: 200000,
-                image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80&w=600",
-                description: "Idéal pour les cours, le bureau ou les voyages avec compartiment PC."
-            },
-            {
-                id: 5,
-                name: "T-shirt Coton Premium Minimaliste",
-                category: "vetements",
-                price: 100000,
-                image: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&q=80&w=600",
-                description: "100% pur coton, doux sur la peau et coupe moderne."
-            },
-            {
-                id: 6,
-                name: "Montre Connectée Sport & Santé",
-                category: "electronique",
-                price: 350000,
-                image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=600",
-                description: "Suivi du rythme cardiaque, notifications d'appels et mode multisport."
-            }
-        ];
-
-        let cart = [];
-        let currentCategory = 'all';
-
-        // Charger les produits depuis le stockage local si disponibles
-        function loadStoredProducts() {
-            const stored = localStorage.getItem('tall_store_products');
-            if (stored) {
-                try {
-                    products = JSON.parse(stored);
-                } catch (e) {
-                    console.error("Erreur de chargement du stockage local", e);
-                }
-            }
-        }
-
-        function saveStoredProducts() {
-            localStorage.setItem('tall_store_products', JSON.stringify(products));
-        }
-
-        // Formater le prix en GNF
-        function formatGNF(amount) {
-            return amount.toLocaleString('fr-FR') + ' GNF';
-        }
-
-        // Afficher les produits sur la page
-        function renderProducts(filteredList = null) {
-            const grid = document.getElementById('products-grid');
-            const noProducts = document.getElementById('no-products');
-            const listToRender = filteredList || products;
-
-            grid.innerHTML = '';
-
-            if (listToRender.length === 0) {
-                noProducts.classList.remove('hidden');
-                return;
-            } else {
-                noProducts.classList.add('hidden');
-            }
-
-            listToRender.forEach(product => {
-                const card = document.createElement('div');
-                card.className = "bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col justify-between hover:shadow-md transition group";
-                card.innerHTML = `
-                    <div>
-                        <div class="relative h-56 overflow-hidden bg-gray-100">
-                            <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-                            <span class="absolute top-3 left-3 bg-gray-900/80 backdrop-blur-sm text-white text-xs font-semibold px-2.5 py-1 rounded-md uppercase">${product.category}</span>
-                        </div>
-                        <div class="p-5 space-y-2">
-                            <h3 class="font-bold text-gray-900 text-base line-clamp-1">${product.name}</h3>
-                            <p class="text-xs text-gray-500 line-clamp-2">${product.description || 'Aucune description disponible.'}</p>
-                            <div class="text-brand font-extrabold text-lg pt-1">${formatGNF(product.price)}</div>
-                        </div>
-                    </div>
-                    <div class="p-5 pt-0">
-                        <button onclick="addToCart(${product.id})" class="w-full bg-gray-900 hover:bg-brand text-white font-medium py-2.5 px-4 rounded-xl transition text-sm flex items-center justify-center space-x-2">
-                            <i class="fa-solid fa-cart-plus"></i>
-                            <span>Ajouter au panier</span>
-                        </button>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        // Filtrer par catégorie
-        function filterCategory(category) {
-            currentCategory = category;
-            
-            // Mettre à jour les boutons actifs
-            document.querySelectorAll('.category-btn').forEach(btn => {
-                btn.className = "category-btn px-4 py-2 rounded-xl text-sm font-semibold transition bg-white text-gray-600 hover:bg-gray-100 border border-gray-200";
-            });
-            const activeBtn = document.getElementById(`cat-${category}`);
-            if (activeBtn) {
-                activeBtn.className = "category-btn px-4 py-2 rounded-xl text-sm font-semibold transition bg-gray-900 text-white shadow-sm";
-            }
-
-            filterProducts();
-        }
-
-        // Filtrer par recherche et catégorie combinées
-        function filterProducts() {
-            const query = document.getElementById('search-input').value.toLowerCase();
-            
-            let filtered = products.filter(p => {
-                const matchesCategory = currentCategory === 'all' || p.category === currentCategory;
-                const matchesSearch = p.name.toLowerCase().includes(query) || (p.description && p.description.toLowerCase().includes(query));
-                return matchesCategory && matchesSearch;
-            });
-
-            renderProducts(filtered);
-        }
-
-        // Gestion du Panier
-        function addToCart(productId) {
-            const product = products.find(p => p.id === productId);
-            if (!product) return;
-
-            const existingItem = cart.find(item => item.id === productId);
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                cart.push({ ...product, quantity: 1 });
-            }
-
-            updateCartBadge();
-            renderCartItems();
-            toggleCartModal(); // Ouvre automatiquement le panier lors de l'ajout
-        }
-
-        function updateCartBadge() {
-            const badge = document.getElementById('cart-badge');
-            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-            
-            if (totalCount > 0) {
-                badge.innerText = totalCount;
-                badge.classList.remove('hidden');
-            } else {
-                badge.classList.add('hidden');
-            }
-        }
-
-        function renderCartItems() {
-            const container = document.getElementById('cart-items');
-            const totalElement = document.getElementById('cart-total');
-
-            container.innerHTML = '';
-
-            if (cart.length === 0) {
-                container.innerHTML = `
-                    <div class="text-center py-12 text-gray-400">
-                        <i class="fa-solid fa-basket-shopping text-4xl mb-3"></i>
-                        <p class="text-sm">Votre panier est vide</p>
-                    </div>
-                `;
-                totalElement.innerText = formatGNF(0);
-                return;
-            }
-
-            let totalPrice = 0;
-
-            cart.forEach(item => {
-                totalPrice += item.price * item.quantity;
-                const div = document.createElement('div');
-                div.className = "py-4 flex items-center justify-between";
-                div.innerHTML = `
-                    <div class="flex items-center space-x-3">
-                        <img src="${item.image}" alt="${item.name}" class="w-14 h-14 object-cover rounded-lg border">
-                        <div>
-                            <h4 class="font-bold text-sm text-gray-900 line-clamp-1">${item.name}</h4>
-                            <p class="text-xs text-brand font-semibold">${formatGNF(item.price)}</p>
-                            <div class="flex items-center space-x-2 mt-1">
-                                <button onclick="updateQuantity(${item.id}, -1)" class="w-5 h-5 bg-gray-100 rounded flex items-center justify-center text-xs font-bold hover:bg-gray-200">-</button>
-                                <span class="text-xs font-bold">${item.quantity}</span>
-                                <button onclick="updateQuantity(${item.id}, 1)" class="w-5 h-5 bg-gray-100 rounded flex items-center justify-center text-xs font-bold hover:bg-gray-200">+</button>
-                            </div>
-                        </div>
-                    </div>
-                    <button onclick="removeFromCart(${item.id})" class="text-gray-400 hover:text-red-500 p-2">
-                        <i class="fa-solid fa-trash-can text-sm"></i>
-                    </button>
-                `;
-                container.appendChild(div);
-            });
-
-            totalElement.innerText = formatGNF(totalPrice);
-        }
-
-        function updateQuantity(productId, delta) {
-            const item = cart.find(i => i.id === productId);
-            if (!item) return;
-
-            item.quantity += delta;
-            if (item.quantity <= 0) {
-                cart = cart.filter(i => i.id !== productId);
-            }
-
-            updateCartBadge();
-            renderCartItems();
-        }
-
-        function removeFromCart(productId) {
-            cart = cart.filter(i => i.id !== productId);
-            updateCartBadge();
-            renderCartItems();
-        }
-
-        function toggleCartModal() {
-            const modal = document.getElementById('cart-modal');
-            modal.classList.toggle('hidden');
-            if (!modal.classList.contains('hidden')) {
-                renderCartItems();
-            }
-        }
-
-        // Validation WhatsApp
-        function checkoutWhatsApp() {
-            if (cart.length === 0) {
-                alert("Votre panier est vide.");
-                return;
-            }
-
-            let message = "Bonjour TALL STORE, je souhaite passer une commande.\n\n";
-            let total = 0;
-
-            cart.forEach(item => {
-                const sub = item.price * item.quantity;
-                total += sub;
-                message += `- ${item.quantity}x ${item.name} (${formatGNF(item.price)} l'unité) = ${formatGNF(sub)}\n`;
-            });
-
-            message += `\n*Total Général : ${formatGNF(total)}*\n\nMerci de me confirmer la disponibilité et les modalités de livraison à Conakry.`;
-
-            const phoneNumber = "224625561200";
-            const encoded = encodeURIComponent(message);
-            window.open(`https://wa.me/${phoneNumber}?text=${encoded}`, '_blank');
-        }
-
-        // Gestion Admin Modals & Produits
-        function openAdminModal() {
-            document.getElementById('admin-modal').classList.remove('hidden');
-            renderAdminProductsList();
-        }
-
-        function closeAdminModal() {
-            document.getElementById('admin-modal').classList.add('hidden');
-        }
-
-        function handleAddProduct(event) {
-            event.preventDefault();
-            
-            const name = document.getElementById('new-name').value.trim();
-            const category = document.getElementById('new-category').value;
-            const price = parseFloat(document.getElementById('new-price').value);
-            const image = document.getElementById('new-image').value.trim();
-            const description = document.getElementById('new-desc').value.trim();
-
-            const newProduct = {
-                id: Date.now(),
-                name,
-                category,
-                price,
-                image,
-                description
-            };
-
-            products.unshift(newProduct);
-            saveStoredProducts();
-            renderProducts();
-            renderAdminProductsList();
-
-            // Réinitialiser le formulaire
-            document.getElementById('add-product-form').reset();
-            alert("Produit ajouté avec succès !");
-        }
-
-        function renderAdminProductsList() {
-            const container = document.getElementById('admin-products-list');
-            const countSpan = document.getElementById('admin-product-count');
-            
-            container.innerHTML = '';
-            countSpan.innerText = products.length;
-
-            products.forEach(p => {
-                const div = document.createElement('div');
-                div.className = "flex items-center justify-between p-3 bg-white rounded-xl border border-gray-100 text-sm";
-                div.innerHTML = `
-                    <div class="flex items-center space-x-3 truncate">
-                        <img src="${p.image}" class="w-10 h-10 object-cover rounded-md">
-                        <div class="truncate">
-                            <p class="font-bold text-gray-900 truncate">${p.name}</p>
-                            <p class="text-xs text-brand font-semibold">${formatGNF(p.price)}</p>
-                        </div>
-                    </div>
-                    <button onclick="deleteProduct(${p.id})" class="text-red-500 hover:text-red-700 p-2">
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        function deleteProduct(productId) {
-            if (confirm("Êtes-vous sûr de vouloir supprimer ce produit ?")) {
-                products = products.filter(p => p.id !== productId);
-                saveStoredProducts();
-                renderProducts();
-                renderAdminProductsList();
-            }
-        }
-
-        // Initialisation au chargement de la page
-        window.addEventListener('DOMContentLoaded', () => {
-            loadStoredProducts();
-            renderProducts();
-        });
-    </script>
+  <div id="cart-modal" class="modal-backdrop fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-5"><div class="flex max-h-[92vh] w-full max-w-lg flex-col overflow-hidden rounded-2xl bg-white shadow-2xl"><div class="flex items-center justify-between border-b px-5 py-4"><div><p class="text-xs font-bold uppercase tracking-widest text-amber-600">Votre sélection</p><h2 class="serif text-xl font-bold">Mon panier</h2></div><button onclick="toggleCartModal()" aria-label="Fermer le panier" class="h-9 w-9 rounded-full bg-slate-100 hover:bg-slate-200"><i class="fa-solid fa-xmark"></i></button></div><div id="cart-items" class="min-h-32 flex-1 overflow-y-auto px-5"></div><div class="space-y-3 border-t bg-slate-50 p-5"><div class="flex justify-between font-bold"><span>Total estimé</span><span id="cart-total" class="text-amber-700">0 GNF</span></div><button onclick="checkoutWhatsApp()" class="w-full rounded-xl bg-emerald-600 py-3.5 font-bold text-white transition hover:bg-emerald-700"><i class="fa-brands fa-whatsapp mr-2 text-lg"></i>Commander sur WhatsApp</button><button onclick="toggleCartModal()" class="w-full py-2 text-sm font-semibold text-slate-500 hover:text-slate-800">Continuer mes achats</button></div></div></div>
+  <div id="admin-modal" class="modal-backdrop fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-5"><div class="flex max-h-[92vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl bg-white shadow-2xl"><div class="flex items-center justify-between bg-[#101827] px-5 py-4 text-white"><div><p class="text-xs font-bold uppercase tracking-widest text-amber-300">TALL STORE</p><h2 class="text-lg font-bold">Espace administrateur</h2></div><button onclick="closeAdminModal()" aria-label="Fermer" class="h-9 w-9 rounded-full bg-white/10 hover:bg-white/20"><i class="fa-solid fa-xmark"></i></button></div><div class="overflow-y-auto p-5"><form id="add-product-form" onsubmit="handleAddProduct(event)" class="grid gap-3 rounded-xl bg-slate-50 p-4 sm:grid-cols-2"><h3 class="sm:col-span-2 font-bold">Ajouter un produit</h3><input id="new-name" required placeholder="Nom du produit" class="rounded-lg border px-3 py-2 text-sm"><select id="new-category" class="rounded-lg border bg-white px-3 py-2 text-sm"><option value="vetements">Vêtements</option><option value="chaussures">Chaussures</option><option value="accessoires">Accessoires</option><option value="electronique">High-Tech</option></select><input id="new-price" type="number" required min="0" placeholder="Prix (GNF)" class="rounded-lg border px-3 py-2 text-sm"><input id="new-image" type="url" required placeholder="URL de l’image" class="rounded-lg border px-3 py-2 text-sm sm:col-span-2"><textarea id="new-desc" rows="2" placeholder="Description courte" class="rounded-lg border px-3 py-2 text-sm sm:col-span-2"></textarea><button type="submit" class="rounded-lg bg-[#101827] px-4 py-2.5 text-sm font-bold text-white hover:bg-slate-700 sm:col-span-2"><i class="fa-solid fa-plus mr-2"></i>Enregistrer le produit</button></form><h3 class="mb-3 mt-6 text-sm font-bold uppercase tracking-wider">Produits enregistrés (<span id="admin-product-count">0</span>)</h3><div id="admin-products-list" class="space-y-2"></div></div></div></div>
+  <a href="https://wa.me/224625561200?text=Bonjour%20TALL%20STORE%2C%20je%20souhaite%20passer%20une%20commande." target="_blank" rel="noopener noreferrer" aria-label="Écrire à TALL STORE sur WhatsApp" class="wa-fab fixed bottom-5 right-5 z-30 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-600 text-3xl text-white transition hover:scale-105 hover:bg-emerald-700"><i class="fa-brands fa-whatsapp"></i></a>
+  <script>
+    const WHATSAPP_PHONE = '224625561200';
+    let products = [
+      {id:1,name:'Baskets Urban Street Pro',category:'chaussures',price:250000,image:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=600',description:'Confortables, tendance et résistantes pour vos sorties quotidiennes à Conakry.'},
+      {id:2,name:'Casquette TALL Édition Limitée',category:'accessoires',price:75000,image:'https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&q=80&w=600',description:'Casquette streetwear ajustable de haute qualité.'},
+      {id:3,name:'Écouteurs Sans Fil Bluetooth Pods',category:'electronique',price:180000,image:'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&q=80&w=600',description:'Son stéréo immersif avec longue autonomie de batterie.'},
+      {id:4,name:'Sac à Dos Casual Imperméable',category:'accessoires',price:200000,image:'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80&w=600',description:'Idéal pour les cours, le bureau ou les voyages avec compartiment PC.'},
+      {id:5,name:'T-shirt Coton Premium Minimaliste',category:'vetements',price:100000,image:'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&q=80&w=600',description:'100% pur coton, doux sur la peau et coupe moderne.'},
+      {id:6,name:'Montre Connectée Sport & Santé',category:'electronique',price:350000,image:'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=600',description:'Suivi du rythme cardiaque, notifications d’appels et mode multisport.'}
+    ];
+    let cart=[]; let currentCategory='all';
+    function loadStoredProducts(){const stored=localStorage.getItem('tall_store_products');if(stored){try{products=JSON.parse(stored)}catch(e){console.error('Erreur de chargement du stockage local',e)}}}
+    function saveStoredProducts(){localStorage.setItem('tall_store_products',JSON.stringify(products))}
+    function formatGNF(amount){return Number(amount).toLocaleString('fr-FR')+' GNF'}
+    function renderProducts(filteredList=null){const grid=document.getElementById('products-grid'),empty=document.getElementById('no-products'),list=filteredList||products;grid.innerHTML='';empty.classList.toggle('hidden',list.length!==0);list.forEach(product=>{const card=document.createElement('article');card.className='product-card overflow-hidden rounded-2xl border border-slate-200/80 bg-white';card.innerHTML=`<div class="relative overflow-hidden bg-slate-100"><img src="${product.image}" alt="${product.name}" loading="lazy" class="h-60 w-full object-cover transition duration-500 hover:scale-105"><span class="absolute left-3 top-3 rounded-full bg-white/95 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-700">${product.category}</span></div><div class="p-5"><p class="text-xs font-semibold uppercase tracking-wider text-slate-400">TALL STORE</p><h3 class="mt-1 truncate font-bold text-slate-900">${product.name}</h3><p class="mt-2 min-h-10 text-sm leading-5 text-slate-500">${product.description||'Aucune description disponible.'}</p><div class="mt-4 flex items-center justify-between gap-3"><span class="font-extrabold text-amber-700">${formatGNF(product.price)}</span><button onclick="addToCart(${product.id})" class="rounded-xl bg-[#101827] px-4 py-2.5 text-sm font-bold text-white transition hover:bg-amber-600"><i class="fa-solid fa-plus mr-1"></i>Ajouter</button></div></div>`;grid.appendChild(card)})}
+    function filterCategory(category){currentCategory=category;document.querySelectorAll('.filter-btn').forEach(button=>button.classList.remove('active'));document.getElementById(`cat-${category}`)?.classList.add('active');filterProducts()}
+    function filterProducts(){const query=document.getElementById('search-input').value.toLowerCase();renderProducts(products.filter(p=>(currentCategory==='all'||p.category===currentCategory)&&(p.name.toLowerCase().includes(query)||(p.description&&p.description.toLowerCase().includes(query)))))}
+    function addToCart(productId){const product=products.find(p=>p.id===productId);if(!product)return;const found=cart.find(i=>i.id===productId);if(found)found.quantity++;else cart.push({...product,quantity:1});updateCartBadge();renderCartItems();showModal('cart-modal')}
+    function updateCartBadge(){const badge=document.getElementById('cart-badge'),count=cart.reduce((sum,item)=>sum+item.quantity,0);badge.textContent=count;badge.classList.toggle('hidden',count===0);badge.classList.toggle('flex',count>0)}
+    function renderCartItems(){const container=document.getElementById('cart-items'),totalElement=document.getElementById('cart-total');container.innerHTML='';if(!cart.length){container.innerHTML='<div class="py-12 text-center text-sm text-slate-400"><i class="fa-solid fa-basket-shopping mb-3 block text-3xl"></i>Votre panier est vide</div>';totalElement.textContent=formatGNF(0);return}let total=0;cart.forEach(item=>{total+=item.price*item.quantity;const row=document.createElement('div');row.className='flex items-center justify-between gap-3 border-b py-4';row.innerHTML=`<div class="flex min-w-0 items-center gap-3"><img src="${item.image}" alt="" class="h-14 w-14 rounded-lg object-cover"><div class="min-w-0"><p class="truncate text-sm font-bold">${item.name}</p><p class="text-xs font-semibold text-amber-700">${formatGNF(item.price)}</p><div class="mt-1 flex items-center gap-2"><button onclick="updateQuantity(${item.id},-1)" class="h-6 w-6 rounded bg-slate-100">−</button><span class="text-xs font-bold">${item.quantity}</span><button onclick="updateQuantity(${item.id},1)" class="h-6 w-6 rounded bg-slate-100">+</button></div></div></div><button onclick="removeFromCart(${item.id})" aria-label="Retirer" class="p-2 text-slate-400 hover:text-red-500"><i class="fa-solid fa-trash-can"></i></button>`;container.appendChild(row)});totalElement.textContent=formatGNF(total)}
+    function updateQuantity(id,delta){const item=cart.find(i=>i.id===id);if(!item)return;item.quantity+=delta;if(item.quantity<=0)cart=cart.filter(i=>i.id!==id);updateCartBadge();renderCartItems()}
+    function removeFromCart(id){cart=cart.filter(i=>i.id!==id);updateCartBadge();renderCartItems()}
+    function toggleCartModal(){const modal=document.getElementById('cart-modal');if(modal.classList.contains('hidden'))showModal('cart-modal');else hideModal('cart-modal')}
+    function showModal(id){const modal=document.getElementById(id);modal.classList.remove('hidden');modal.classList.add('flex');if(id==='cart-modal')renderCartItems()}
+    function hideModal(id){const modal=document.getElementById(id);modal.classList.add('hidden');modal.classList.remove('flex')}
+    function checkoutWhatsApp(){if(!cart.length){alert('Votre panier est vide.');return}let message='Bonjour TALL STORE, je souhaite passer une commande.\n\n';let total=0;cart.forEach(item=>{const subtotal=item.price*item.quantity;total+=subtotal;message+=`- ${item.quantity}x ${item.name} (${formatGNF(item.price)} l'unité) = ${formatGNF(subtotal)}\n`});message+=`\n*Total Général : ${formatGNF(total)}*\n\nMerci de me confirmer la disponibilité et les modalités de livraison à Conakry.`;window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`,'_blank','noopener,noreferrer')}
+    function toggleMobileMenu(){document.getElementById('mobile-menu').classList.toggle('hidden')}
+    function openAdminModal(){renderAdminProductsList();showModal('admin-modal')}
+    function closeAdminModal(){hideModal('admin-modal')}
+    function handleAddProduct(event){event.preventDefault();const product={id:Date.now(),name:document.getElementById('new-name').value.trim(),category:document.getElementById('new-category').value,price:Number(document.getElementById('new-price').value),image:document.getElementById('new-image').value.trim(),description:document.getElementById('new-desc').value.trim()};products.unshift(product);saveStoredProducts();renderProducts();renderAdminProductsList();document.getElementById('add-product-form').reset();alert('Produit ajouté avec succès !')}
+    function renderAdminProductsList(){const container=document.getElementById('admin-products-list');document.getElementById('admin-product-count').textContent=products.length;container.innerHTML='';products.forEach(p=>{const row=document.createElement('div');row.className='flex items-center justify-between gap-3 rounded-lg border bg-white p-3 text-sm';row.innerHTML=`<div class="flex min-w-0 items-center gap-3"><img src="${p.image}" alt="" class="h-10 w-10 rounded object-cover"><div class="min-w-0"><p class="truncate font-bold">${p.name}</p><p class="text-xs text-amber-700">${formatGNF(p.price)}</p></div></div><button onclick="deleteProduct(${p.id})" aria-label="Supprimer ${p.name}" class="p-2 text-red-500 hover:text-red-700"><i class="fa-solid fa-trash"></i></button>`;container.appendChild(row)})}
+    function deleteProduct(id){if(confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')){products=products.filter(p=>p.id!==id);saveStoredProducts();renderProducts();renderAdminProductsList()}}
+    window.addEventListener('DOMContentLoaded',()=>{loadStoredProducts();renderProducts()});
+  </script>
 </body>
 </html>
